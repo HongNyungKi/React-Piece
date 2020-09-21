@@ -1,71 +1,41 @@
-import React,{useRef,useState} from 'react';
-import UserList from './piece/UserList.js';
-import CreateUser from './piece/CreateUser.js';
+import React,{useState} from 'react';
+import Inputs from './hooks/useState/Inputs.js';
 
-function App() {
-  const [userInfo, setUserInfo] = useState(
-    [
+function App(){
+  const [inputs,setInputs] = useState(
       {
-          id:1,
-          username:'홍녕기',
-          email:'hnk2017@naver.com'
-      },{
-          id:2,
-          username:'양현준',
-          email:'akakak231@google.com'
-      },{
-          id:3,
-          username:'김철환',
-          email:'kkcch9@naver.com'
+          username:'계정명',
+          email:'이메일'
       }
-    ]
   )
-  
-  const [inputs, setInputs] = useState(
-    {
-      username:'',
-      email:''
-    }
-  )
-  const {username,email} = inputs;
-  const onChange = (e)=>{
+  const {username, email} = inputs;
+
+  const onChangeFn = (e)=>{
+      setInputs(
+          {
+              ...inputs,
+              [e.target.name] : e.target.value
+          }
+      )
+  }
+  const onResetFn = ()=>{
     setInputs(
       {
-        ...inputs,
-        [e.target.name]:e.target.value
+        username:'계정명',
+        email:'이메일'
       }
     )
   }
-  const nextId = useRef(4);
-  const onCreate = ()=>{
-    const user = {
-      id: nextId.current,
-      username,
-      email
-    }
-    setUserInfo(userInfo.concat(user))
-    setInputs(
-      {
-        username:'',
-        email:''
-      }
-    );
-    nextId.current += 1;
-  }
-  
   return (
     <>
-      <CreateUser 
+      <Inputs 
         username={username}
         email={email}
-        onChange={onChange}
-        onCreate={onCreate}
-      />
-      <UserList 
-        userInfo={userInfo}
+        onChangeFn={onChangeFn}
+        onResetFn={onResetFn}
       />
     </>
-  );
+  )
 }
 
 export default App;

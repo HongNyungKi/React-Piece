@@ -1,38 +1,23 @@
 import React,{useState} from 'react';
 
-function Inputs(){
-    const [inputs,setInputs] = useState(
-        {
-            person:'이름',
-            nickName:'닉네임'
-        }
-    )
-    const {person,nickName} = inputs;
-    
-    const onChange = (e)=>{
-        setInputs(
-            {
-                ...inputs,
-            [e.target.name] : e.target.value
-            }
-        )
-    }
-    const onReset = ()=>{
-        setInputs(
-            {
-                person:'이름',
-                nickName:'닉네임'
-            }
-        )
-    }
+function Inputs({username,email,onChangeFn,onResetFn}){
 
     return (
         <div>
-            <input placeholder='이름' name='person' onChange={onChange}/>
-            <input placeholder='닉네임' name='nickName' onChange={onChange}/>
-            <button onClick={onReset}>초기화</button>
+            <input 
+                name='username'
+                placeholder='계정명을 입력하세요'
+                onChange={onChangeFn}
+                
+            />
+            <input 
+                name='email'
+                placeholder='이메일을 입력하세요'
+                onChange={onChangeFn}
+            />
+            <button onClick={onResetFn}>리셋하기</button>
             <div>
-                <b>값:</b>{person} ({nickName})
+                {username} : {email}
             </div>
         </div>
     )

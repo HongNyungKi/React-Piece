@@ -1,20 +1,22 @@
 import React from 'react';
 
 function User({person}){
-    return (
+    return(
         <div>
             {person.username} : {person.email}
-            <button>삭제</button>
         </div>
     )
 }
 
-function UserList({userInfo}){
+function UserList({usersInfo}){
+    
     return (
         <div>
-            {userInfo.map(
-                (user)=>(<User person={user} key={user.id}/>)
-            )}
+            {
+                usersInfo.map(
+                    (userInfo)=>(<User person={userInfo} key={userInfo.id}/>)
+                )
+            }
         </div>
     )
 }
