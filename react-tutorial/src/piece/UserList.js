@@ -1,24 +1,41 @@
-<<<<<<< HEAD
-=======
-import React from 'react';
+import React,{useState,useRef} from 'react';
 
-
-
-function User({person}){
-    return(
-    <div>
-        {person.username} : {person.email}
-    </div>
+function MakeList({person, onRemoveFn, onToggleFn}){
+    const {username,email,id,active} = person
+    return (
+        <div>
+            <span
+                style={
+                    {
+                        color: active? 'green' : 'black',
+                        cursor: 'pointer'
+                    }
+                }
+                onClick={
+                    ()=>onToggleFn(id)
+                }
+            >
+                {username} : {email} 
+            </span>
+            <button onClick={()=>onRemoveFn(id)}>삭제</button>
+        </div>
     )
 }
 
-function UserList({users}){
-    
-    return(
+function UserList({usersInfo,onRemoveFn,onToggleFn}){
+
+    return (
         <div>
             {
-                users.map(
-                    (user)=>(<User person={user} key={user.id}/>)
+                usersInfo.map(
+                    (userInfo)=>(
+                        <MakeList 
+                            person={userInfo} 
+                            key={userInfo.id}
+                            onRemoveFn={onRemoveFn}
+                            onToggleFn={onToggleFn}
+                        />
+                        )   
                 )
             }
         </div>
@@ -26,4 +43,3 @@ function UserList({users}){
 }
 
 export default UserList;
->>>>>>> 528c0aed9722ef8a08101226b4b36f1dd3235490

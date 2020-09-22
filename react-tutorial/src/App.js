@@ -1,78 +1,91 @@
-<<<<<<< HEAD
-=======
-import React,{useState, useRef} from "react";
-import UserList from './piece/UserList';
-import CreateUser from './piece/CreateUser';
+import React,{useState,useRef} from 'react';
+import UserList from './piece/UserList.js';
+import CreateUser from './piece/CreateUser.js';
 
-function App() {
-  const [users, setUsers] = useState(
-      [
-        {
-            id:1,
-            username:'홍녕기',
-            email:'hnk2017@naver.com'
-        },{
-            id:2,
-            username:'양현준',
-            email:'akakak231@google.com'
-        },{
-            id:3,
-            username:'김철환',
-            email:'kkcch9@naver.com'
-        }
-    ]
-  )
-  
-  
-  const [inputs,setInputs] =useState(
+function App(){
+
+  const [usersInfo,setUsersInfo] = useState(
+        [
+            {
+                id:1,
+                username:'홍녕기',
+                email:'hnk2017@naver.com',
+                active: true
+            },{
+                id:2,
+                username:'김철환',
+                email:'kkcch9@naver.com',
+                active: false
+            },{
+                id:3,
+                username:'양현준',
+                email:'akakak231@google.com',
+                active: false
+            }
+        ]
+    )
+  const nextId = useRef(4)
+
+  const [inputs, setInputs] = useState(
     {
-      username:'',
+      name:'',
       email:''
     }
   )
-  const {username,email} = inputs
-
-  const nextId = useRef(4);
+  const {name,email} = inputs
 
   const onChangeFn = (e)=>{
     setInputs(
-      {
+      { 
         ...inputs,
-      [e.target.name]:e.target.value
+        [e.target.name] : e.target.value
       }
     )
   }
   const onCreateFn = ()=>{
-    const addUser = {
+    const userInfo = {
       id:nextId.current,
-      username,
+      username:name,
       email
     }
-    setUsers(
-      users.concat(addUser)
-    )
+    setUsersInfo(usersInfo.concat(userInfo))
     setInputs(
       {
-        username:'',
+        name:'',
         email:''
       }
     )
-      nextId.current += 1 ;
+    nextId.current += 1;
   }
-
-return(
+  const onRemoveFn = (id)=>{
+    setUsersInfo(
+      usersInfo.filter(
+        info => info.id !== id
+      )
+    )
+  }
+  const onToggleFn = (id)=>{
+    setUsersInfo(
+      usersInfo.map(
+        info => info.id ===id? {...info, active: !info.active} : info
+      )
+    )
+  }
+  return (
     <div>
-        <CreateUser 
-        onCreateFn={onCreateFn}
-        onChangeFn={onChangeFn}
-        username={username}
+      <CreateUser 
+        onChangeFn = {onChangeFn}
+        onCreateFn = {onCreateFn}
+        name={name}
         email={email}
-        />
-        <UserList users={users}/>
-        
+      />
+      <UserList 
+        usersInfo={usersInfo}
+        onRemoveFn={onRemoveFn}
+        onToggleFn={onToggleFn}
+      />
     </div>
-)
-
+  )
 }
+
 export default App;
->>>>>>> 528c0aed9722ef8a08101226b4b36f1dd3235490

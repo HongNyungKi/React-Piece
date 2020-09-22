@@ -1,24 +1,23 @@
 import React,{useState} from 'react';
 
 function Input(){
-    const [text,setText] = useState('');
-    const onChange = (e)=>{
-        console.log(e.target.value);
-        setText(e.target.value);
+    const [text, setText] = useState('');
+
+    const onChangeFn = (e)=>{
+        setText(e.target.value)
     }
-    const onReset = ()=>{
-        console.log('reset');
-        setText('');
+    const onResetFn = ()=>{
+        setText('')
     }
 
     return (
-        <div>
-            <input onChange={onChange} value={text}/>
-            <button onClick={onReset}>초기화</button>
+        <>
+            <input onChange={onChangeFn} value={text}/>
+            <button onClick={onResetFn}>초기화</button>
             <div>
-                <b>값:</b> {text}
+                값: {text}
             </div>
-        </div>
+        </>
     )
 }
 

@@ -1,27 +1,25 @@
-<<<<<<< HEAD
-=======
 import React from 'react';
 
-function CreateUser({username,email,onChangeFn,onCreateFn}){
+function CreateUser({name,email,onChangeFn,onCreateFn}){
     return (
         <div>
             <input 
-            name='username'
-            placeholder='계정명'
-            onChange={onChangeFn}
-            value={username}
+                placeholder='이름을 입력하세요'
+                name='name'
+                onChange={onChangeFn}
+                value={name}
             />
             <input 
-            name='email'
-            placeholder='이메일'
-            onChange={onChangeFn}
-            value={email}
+                placeholder='이메일을 입력하세요'
+                name='email'
+                onChange={onChangeFn}
+                value={email}
             />
             <button onClick={onCreateFn}>추가하기</button>
         </div>
-        
     )
 }
 
 export default CreateUser;
->>>>>>> 528c0aed9722ef8a08101226b4b36f1dd3235490
+
+//1. input에 작성한 내용을 추가하기 버튼을 눌러 usersinfo 객체에 추가하기
